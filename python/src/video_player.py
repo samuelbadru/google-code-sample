@@ -34,7 +34,10 @@ class VideoPlayer:
         Args:
             video_id: The video_id to be played.
         """
-        print("play_video needs implementation")
+
+        video = self._video_library.get_video(video_id)
+
+        print(f"Playing video: {video.title}")
 
     def stop_video(self):
         """Stops the current video."""
