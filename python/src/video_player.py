@@ -42,10 +42,14 @@ class VideoPlayer:
         try:
             if self._video_state.state == "NOT PLAYING":
                 print(f"Playing video: {video.title}")
-
+                self._video_state.state = "PLAYING"
+                self._video_state.video_id = video_id
             else:
-                print(f"Stopping video")
-
+                prev_video_id = self._video_state.video_id
+                prev_video = self._video_library.get_video(prev_video_id)
+                print(f"Stopping video: {prev_video.title}")
+                print(f"Playing video: {video.title}")
+                self._video_state.video_id = video_id
         except AttributeError:
             print("Cannot play video: Video does not exist")
 
