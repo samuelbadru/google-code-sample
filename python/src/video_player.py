@@ -100,8 +100,22 @@ class VideoPlayer:
 
     def show_playing(self):
         """Displays video currently playing."""
+        if self._video_state.state == "STOPPED":
+            print("No video is currently playing")
+            return
 
-        print("show_playing needs implementation")
+        video_id = self._video_state.video_id
+        video = self._video_library.get_video(video_id)
+        tags = video.tags
+        formatted_tags = ""
+
+        for tag in tags:
+            formatted_tags += tag + " "
+
+        if self._video_state.state == "PLAYING":
+            print(f"Currently playing: {video.title} ({video.video_id}) [{formatted_tags.rstrip()}]")
+        elif self._video_state.state == "PAUSED":
+            print(f"Currently playing: {video.title} ({video.video_id}) [{formatted_tags.rstrip()}] - PAUSED")
 
     def create_playlist(self, playlist_name):
         """Creates a playlist with a given name.
