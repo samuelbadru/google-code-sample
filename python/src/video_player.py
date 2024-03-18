@@ -1,6 +1,7 @@
 """A video player class."""
 
 from .video_library import VideoLibrary
+from .video_state import VideoState
 
 
 class VideoPlayer:
@@ -8,7 +9,7 @@ class VideoPlayer:
 
     def __init__(self):
         self._video_library = VideoLibrary()
-        self._video_state = "NOT PLAYING"
+        self._video_state = VideoState("NOT PLAYING", "")
 
     def number_of_videos(self):
         num_videos = len(self._video_library.get_all_videos())
@@ -39,7 +40,12 @@ class VideoPlayer:
         video = self._video_library.get_video(video_id)
 
         try:
-            print(f"Playing video: {video.title}")
+            if self._video_state.state == "NOT PLAYING":
+                print(f"Playing video: {video.title}")
+
+            else:
+                print(f"Stopping video")
+
         except AttributeError:
             print("Cannot play video: Video does not exist")
 
