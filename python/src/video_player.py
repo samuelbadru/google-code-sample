@@ -50,13 +50,13 @@ class VideoPlayer:
             prev_video = self._video_library.get_video(prev_video_id)
             print(f"Stopping video: {prev_video.title}")
             print(f"Playing video: {video.title}")
+            self._video_state.state = "PLAYING"
             self._video_state.video_id = video_id
-
 
     def stop_video(self):
         """Stops the current video."""
 
-        if self._video_state.state == "PLAYING":
+        if self._video_state.state == "PLAYING" or self._video_state.state == "PAUSED":
             video_id = self._video_state.video_id
             video = self._video_library.get_video(video_id)
             print(f"Stopping video: {video.title}")
@@ -73,12 +73,30 @@ class VideoPlayer:
     def pause_video(self):
         """Pauses the current video."""
 
-        print("pause_video needs implementation")
+        if self._video_state.state == "PLAYING":
+            video_id = self._video_state.video_id
+            video = self._video_library.get_video(video_id)
+            print(f"Pausing video: {video.title}")
+            self._video_state.state = "PAUSED"
+        elif self._video_state.state == "PAUSED":
+            video_id = self._video_state.video_id
+            video = self._video_library.get_video(video_id)
+            print(f"Video already paused: {video.title}")
+        elif self._video_state.state == "STOPPED":
+            print("Cannot pause video: No video is currently playing")
 
     def continue_video(self):
         """Resumes playing the current video."""
 
-        print("continue_video needs implementation")
+        if self._video_state.state == "PAUSED":
+            video_id = self._video_state.video_id
+            video = self._video_library.get_video(video_id)
+            print(f"Continuing video: {video.title}")
+            self._video_state.state = "PLAYING"
+        elif self._video_state.state == "PLAYING":
+            print("Cannot continue video: Video is not paused")
+        elif self._video_state.state == "STOPPED":
+            print("Cannot continue video: No video is currently playing")
 
     def show_playing(self):
         """Displays video currently playing."""
