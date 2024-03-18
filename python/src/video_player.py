@@ -16,7 +16,7 @@ class VideoPlayer:
     def show_all_videos(self):
         """Returns all videos."""
 
-        all_videos = self._video_library.get_all_videos()
+        all_videos = sorted(self._video_library.get_all_videos(), key=lambda video: video.title)
 
         print("Here's a list of all available videos:")
         for video in all_videos:
