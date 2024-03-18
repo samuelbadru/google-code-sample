@@ -56,7 +56,13 @@ class VideoPlayer:
     def stop_video(self):
         """Stops the current video."""
 
-        print("stop_video needs implementation")
+        if self._video_state.state == "PLAYING":
+            video_id = self._video_state.video_id
+            video = self._video_library.get_video(video_id)
+            print(f"Stopping video: {video.title}")
+            self._video_state.state = "NOT PLAYING"
+        elif self._video_state.state == "NOT PLAYING":
+            print("Cannot stop video: No video is currently playing")
 
     def play_random_video(self):
         """Plays a random video from the video library."""
