@@ -9,7 +9,7 @@ class VideoPlayer:
 
     def __init__(self):
         self._video_library = VideoLibrary()
-        self._video_state = VideoState("NOT PLAYING", "")
+        self._video_state = VideoState("STOPPED", "")
 
     def number_of_videos(self):
         num_videos = len(self._video_library.get_all_videos())
@@ -41,7 +41,7 @@ class VideoPlayer:
 
         if video is None:
             print("Cannot play video: Video does not exist")
-        elif self._video_state.state == "NOT PLAYING":
+        elif self._video_state.state == "STOPPED":
             print(f"Playing video: {video.title}")
             self._video_state.state = "PLAYING"
             self._video_state.video_id = video_id
@@ -60,8 +60,8 @@ class VideoPlayer:
             video_id = self._video_state.video_id
             video = self._video_library.get_video(video_id)
             print(f"Stopping video: {video.title}")
-            self._video_state.state = "NOT PLAYING"
-        elif self._video_state.state == "NOT PLAYING":
+            self._video_state.state = "STOPPED"
+        elif self._video_state.state == "STOPPED":
             print("Cannot stop video: No video is currently playing")
 
     def play_random_video(self):
