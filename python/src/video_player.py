@@ -20,8 +20,13 @@ class VideoPlayer:
 
         print("Here's a list of all available videos:")
         for video in all_videos:
+            tags = video.tags
+            formatted_tags = ""
 
-            print(f"  {video.title} ({video.video_id}) [{video.tags}]")
+            for tag in tags:
+                formatted_tags += tag + " "
+
+            print(f"  {video.title} ({video.video_id}) [{formatted_tags.rstrip()}]")
 
     def play_video(self, video_id):
         """Plays the respective video.
