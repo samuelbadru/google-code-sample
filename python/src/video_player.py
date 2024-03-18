@@ -37,7 +37,10 @@ class VideoPlayer:
 
         video = self._video_library.get_video(video_id)
 
-        print(f"Playing video: {video.title}")
+        try:
+            print(f"Playing video: {video.title}")
+        except AttributeError:
+            print("Cannot play video: Video does not exist")
 
     def stop_video(self):
         """Stops the current video."""
