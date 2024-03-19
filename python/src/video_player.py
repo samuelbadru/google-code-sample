@@ -127,17 +127,20 @@ class VideoPlayer:
             playlist_name: The playlist name.
         """
 
-        duplicate_name = False
+        duplicate_playlist = self.duplicate_playlist_check(playlist_name)
 
-        for playlist in self._playlist_library:
-            if playlist.name.lower() == playlist_name.lower():
-                duplicate_name = True
-
-        if duplicate_name:
+        if duplicate_playlist:
             print("Cannot create playlist: A playlist with the same name already exists")
         else:
             self._playlist_library.append(Playlist(playlist_name))
             print(f"Successfully created new playlist: {playlist_name}")
+
+    def duplicate_playlist_check(self, playlist_name):
+        duplicate_name = False
+        for playlist in self._playlist_library:
+            if playlist.name.lower() == playlist_name.lower():
+                duplicate_name = True
+        return duplicate_name
 
     def add_to_playlist(self, playlist_name, video_id):
         """Adds a video to a playlist with a given name.
@@ -146,6 +149,9 @@ class VideoPlayer:
             playlist_name: The playlist name.
             video_id: The video_id to be added.
         """
+
+
+
         print("add_to_playlist needs implementation")
 
     def show_all_playlists(self):
