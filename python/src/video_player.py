@@ -127,7 +127,7 @@ class VideoPlayer:
             playlist_name: The playlist name.
         """
 
-        duplicate_playlist = self.duplicate_playlist_check(playlist_name)
+        duplicate_playlist = self.check_playlist_exists(playlist_name)
 
         if duplicate_playlist:
             print("Cannot create playlist: A playlist with the same name already exists")
@@ -135,7 +135,7 @@ class VideoPlayer:
             self._playlist_library.append(Playlist(playlist_name))
             print(f"Successfully created new playlist: {playlist_name}")
 
-    def duplicate_playlist_check(self, playlist_name):
+    def check_playlist_exists(self, playlist_name):
         duplicate_name = False
         for playlist in self._playlist_library:
             if playlist.name.lower() == playlist_name.lower():
@@ -149,9 +149,6 @@ class VideoPlayer:
             playlist_name: The playlist name.
             video_id: The video_id to be added.
         """
-
-
-
         print("add_to_playlist needs implementation")
 
     def show_all_playlists(self):
