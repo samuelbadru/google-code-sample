@@ -4,9 +4,10 @@
 class Playlist:
     """A class used to represent a Playlist."""
 
-    def __init__(self, name, video_id):
+    def __init__(self, name):
         self._name = name
-        self._video_id = video_id
+        self._videos = []
+
 
     @property
     def name(self):
@@ -17,9 +18,9 @@ class Playlist:
         self._name = new_name
 
     @property
-    def video_id(self):
-        return self._video_id
+    def videos(self):
+        return self._videos
 
-    @video_id.setter
-    def video_id(self, new_video_id):
-        self._video_id = new_video_id
+    @videos.setter
+    def videos(self, video_id):
+        self._videos.append(video_id)

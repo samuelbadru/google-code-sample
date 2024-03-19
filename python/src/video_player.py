@@ -149,6 +149,10 @@ class VideoPlayer:
             playlist_name: The playlist name.
             video_id: The video_id to be added.
         """
+
+        valid_playlist = self.check_playlist_exists(playlist_name)
+        video = self._video_library.get_video(video_id)
+
         print("add_to_playlist needs implementation")
 
     def show_all_playlists(self):
