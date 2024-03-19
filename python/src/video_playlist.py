@@ -22,5 +22,5 @@ class Playlist:
         return self._videos
 
     @videos.setter
-    def videos(self, video_id):
-        self._videos.append(video_id)
+    def videos(self, video):
+        self._videos.append(video)
