@@ -2,7 +2,9 @@
 
 from .video_library import VideoLibrary
 from .video_state import VideoState
+from .video_playlist import Playlist
 import random
+
 
 class VideoPlayer:
     """A class used to represent a Video Player."""
@@ -10,6 +12,7 @@ class VideoPlayer:
     def __init__(self):
         self._video_library = VideoLibrary()
         self._video_state = VideoState("STOPPED", "")
+        self._playlist_library = []
 
     def number_of_videos(self):
         num_videos = len(self._video_library.get_all_videos())
@@ -123,7 +126,18 @@ class VideoPlayer:
         Args:
             playlist_name: The playlist name.
         """
-        print("create_playlist needs implementation")
+
+        duplicate_name = False
+
+        for playlist in self._playlist_library:
+            if playlist.name.lower() == playlist_name.lower():
+                duplicate_name = True
+
+        if duplicate_name:
+            print("Cannot create playlist: A playlist with the same name already exists")
+        else:
+            self._playlist_library.append(Playlist(playlist_name))
+            print(f"Successfully created new playlist: {playlist_name}")
 
     def add_to_playlist(self, playlist_name, video_id):
         """Adds a video to a playlist with a given name.
