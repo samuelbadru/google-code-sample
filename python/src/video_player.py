@@ -142,6 +142,9 @@ class VideoPlayer:
                 duplicate_name = True
         return duplicate_name
 
+
+
+
     def add_to_playlist(self, playlist_name, video_id):
         """Adds a video to a playlist with a given name.
 
@@ -151,9 +154,34 @@ class VideoPlayer:
         """
 
         valid_playlist = self.check_playlist_exists(playlist_name)
-        video = self._video_library.get_video(video_id)
+        if not valid_playlist:
+            print(f"Cannot add video to {playlist_name}: Playlist does not exist")
+            return
 
-        print("add_to_playlist needs implementation")
+        video = self._video_library.get_video(video_id)
+        if video is None:
+            print(f"Cannot add video to {playlist_name}: Video does not exist")
+            return
+
+        duplicate_video = self.duplicate_playlist_video(playlist_name, video_id)
+        if duplicate_video:
+            print(f"Cannot add video to {playlist_name}: Video already added")
+            return
+
+        video_name = self._video_library.get_video(video_id).title
+        print(f"Added video to {playlist_name}: {video_name}")
+
+    def duplicate_playlist_video(self, playlist_name, video_id):
+        for playlist in self._playlist_library:
+            if playlist.name.lower() == playlist_name.lower():
+                videos = playlist.videos
+
+                for video in videos:
+                    if video.video_id == video_id:
+                        return True
+
+                playlist.videos = self._video_library.get_video(video_id)
+                return False
 
     def show_all_playlists(self):
         """Display all playlists."""
