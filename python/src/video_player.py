@@ -24,6 +24,9 @@ class VideoPlayer:
         all_videos = sorted(self._video_library.get_all_videos(), key=lambda video: video.title)
 
         print("Here's a list of all available videos:")
+        self.print_video_details(all_videos)
+
+    def print_video_details(self, all_videos):
         for video in all_videos:
             tags = video.tags
             formatted_tags = ""
@@ -200,7 +203,19 @@ class VideoPlayer:
         Args:
             playlist_name: The playlist name.
         """
-        print("show_playlist needs implementation")
+        for playlist in self._playlist_library:
+            if playlist.name.lower() == playlist_name.lower():
+                print(f"Showing playlist: {playlist_name}")
+                videos = playlist.videos
+
+                if not videos:
+                    print("  No videos here yet")
+                    return
+                else:
+                    self.print_video_details(videos)
+                    return
+
+        print(f"Cannot show playlist {playlist_name}: Playlist does not exist")
 
     def remove_from_playlist(self, playlist_name, video_id):
         """Removes a video to a playlist with a given name.
@@ -259,3 +274,6 @@ class VideoPlayer:
             video_id: The video_id to be allowed again.
         """
         print("allow_video needs implementation")
+
+
+# TODO Refactor the multiple helper functions that all locate the playlist. Dictionary may be better than list
