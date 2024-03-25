@@ -143,8 +143,6 @@ class VideoPlayer:
         return duplicate_name
 
 
-
-
     def add_to_playlist(self, playlist_name, video_id):
         """Adds a video to a playlist with a given name.
 
@@ -186,7 +184,15 @@ class VideoPlayer:
     def show_all_playlists(self):
         """Display all playlists."""
 
-        print("show_all_playlists needs implementation")
+        if not self._playlist_library:
+            print("No playlists exist yet")
+            return
+
+        all_playlists = sorted(self._playlist_library, key=lambda playlist: playlist.name)
+
+        print("Showing all playlists:")
+        for playlist in all_playlists:
+            print(f"  {playlist.name}")
 
     def show_playlist(self, playlist_name):
         """Display all videos in a playlist with a given name.
