@@ -224,7 +224,19 @@ class VideoPlayer:
             playlist_name: The playlist name.
             video_id: The video_id to be removed.
         """
-        print("remove_from_playlist needs implementation")
+        playlist_exists = False
+        video_exists = False
+
+        for playlist in self._playlist_library:
+            if playlist.name.lower() == playlist_name.lower():
+                playlist_exists = True
+                videos = playlist.videos
+
+                for video in videos:
+                    if video.video_id == video_id:
+                        video_exists = True
+# TODO Make a function in playlist itself to remove one of its videos.
+
 
     def clear_playlist(self, playlist_name):
         """Removes all videos from a playlist with a given name.
@@ -276,4 +288,4 @@ class VideoPlayer:
         print("allow_video needs implementation")
 
 
-# TODO Refactor the multiple helper functions that all locate the playlist. Dictionary may be better than list
+# TODO Refactor the multiple helper functions that all locate the playlist. Dictionary may be better than list, or playlist class to have a locate function
