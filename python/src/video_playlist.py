@@ -24,3 +24,13 @@ class Playlist:
     @videos.setter
     def videos(self, video):
         self._videos.append(video)
+
+    def delete_video(self, video_id):
+        for video in self._videos:
+            if video.video_id == video_id:
+                self._videos.remove(video)
+                return
+
+
+
+
