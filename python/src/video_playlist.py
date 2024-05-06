@@ -31,6 +31,5 @@ class Playlist:
                 self._videos.remove(video)
                 return
 
-
-
-
+    def clear(self):
+        self._videos.clear()
