@@ -299,10 +299,7 @@ class VideoPlayer:
             print(f"No search results for {search_term}")
             return
 
-        print(f"Here are the results for {search_term}:")
-        self.print_video_details_search(video_results)
-        print("Would you like to play any of the above? If yes, specify the number of the video.")
-        print("If your answer is not a valid number, we will assume it's a no.")
+        self.print_video_details_search(video_results, search_term)
 
         command = input()
 
@@ -315,7 +312,8 @@ class VideoPlayer:
         except ValueError:
             return
 
-    def print_video_details_search(self, all_videos):
+    def print_video_details_search(self, all_videos, query):
+        print(f"Here are the results for {query}:")
         index = 1
         for video in all_videos:
             tags = video.tags
@@ -326,6 +324,8 @@ class VideoPlayer:
 
             print(f"{index}) {video.title} ({video.video_id}) [{formatted_tags.rstrip()}]")
             index += 1
+        print("Would you like to play any of the above? If yes, specify the number of the video.")
+        print("If your answer is not a valid number, we will assume it's a no.")
 
 
 
@@ -338,7 +338,37 @@ class VideoPlayer:
         Args:
             video_tag: The video tag to be used in search.
         """
-        print("search_videos_tag needs implementation")
+
+        if "#" not in video_tag:
+            print(f"No search results for {video_tag}")
+            return
+
+        videos = sorted(self._video_library.get_all_videos(), key=lambda video: video.title)
+
+        video_results = []
+
+        for video in videos:
+            for tag in video.tags:
+                if video_tag.lower() in tag.lower():
+                    video_results.append(video)
+
+
+        if not video_results:
+            print(f"No search results for {video_tag}")
+            return
+
+        self.print_video_details_search(video_results, video_tag)
+
+        command = input()
+
+        try:
+            index = int(command) - 1
+
+            if index in range(len(video_results)):
+                selected_video = video_results[index]
+                self.play_video(selected_video.video_id)
+        except ValueError:
+            return
 
     def flag_video(self, video_id, flag_reason=""):
         """Mark a video as flagged.
